@@ -1,20 +1,19 @@
-import React from 'react';
+import React, {Component} from 'react';
 
-const UserDetails = (props) => {
-    if(!props || !props.) {
-        return '';
+const UserDetails = ({usercontent}) => {
+    if(!usercontent) {
+        return <div>Login to Access data</div>;
     }
-   const content = props.userContent.map((content) => { return (
+  /* const content = props.userContent.map((content) => { return (
         <div>
         <div className="title">{content.name}</div>
         <div className="user-name">{content.username}</div>
         </div>
     )
-    });
+    });*/
 
     return (
         <div className="col-md-8">
-            {content}
         </div>
     );
 }
