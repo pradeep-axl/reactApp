@@ -35,8 +35,7 @@ class AppComp extends Component {
     }
 
     render() {
-
-        if (this.state.status){
+        if (!this.state.status){
             return (
                 <div>
                     <Login onLonginFormSubmit={(apiKey) => this.fetchData(apiKey)} status={this.state.status}/>
