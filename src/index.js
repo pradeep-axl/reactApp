@@ -8,30 +8,32 @@ import axios from 'axios';
 class AppComp extends Component {
     constructor(props) {
         super(props);
-        this.state = { data: [], url:  "http://local.rapalert.com/admin/content.json", status: ""};
+        this.state = { data: [], url:  "https://jsonplaceholder.typicode.com/photos", status: ""};
     }
 
     fetchData(apiKey) {
-        axios.get(this.state.url, {"method": "GET", "headers" : {
+        var request = new XMLHttpRequest();
+        request.open('GET', this.state.url, true);
+        self = this;
+        axios.get( this.state.url, {"method": "GET", "headers" : {
             "authorization": apiKey,
             "Accept": "application/json, text/plain",
             "dataType": 'jsonp',
             "crossDomain": true,
             "content-type": "application/json"
         }}).then((response) => {
-            this.state.setState({status: response.status});
+            console.log(response.status);
+            self.setState({status: response.status});
             if (response.status >= 200 && response.status < 300) {
-                this.state.setState({ data: response });
-
+                self.setState({ data: response.data });
             } else {
                 var error = new Error(response.statusText)
                 error.response = response
                 throw error
             }
         }).catch(function (err) {
-            error.response = err.response
-            throw error
-        });
+            throw err;
+        })
     }
 
     render() {
@@ -43,7 +45,7 @@ class AppComp extends Component {
                 </div>
             );
         }else {
-           return <UserDetails content={this.state.data} />;
+           return <UserDetails usercontent={this.state.data} />;
         }
     }
 }
